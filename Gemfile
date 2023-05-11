@@ -73,3 +73,7 @@ end
 gem "webpacker"
 
 gem "react-rails"
+
+# pundit 2.3.0
+# Object oriented authorization for Rails applications
+gem "pundit", "~> 2.3"

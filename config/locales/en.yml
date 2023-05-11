@@ -31,5 +31,7 @@
 
 en:
   post:
+    successfully_created: "Post was successfully created"
     slug:
       immutable: "is immutable!"
+  generic_error: "Something went wrong. Please try again later."
