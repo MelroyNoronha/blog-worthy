@@ -14,7 +14,7 @@ const TableRow = ({ data }) => (
         </td>
         <td
           className="truncate block w-64 px-6 text-xs
-            font-medium capitalize leading-8 text-bb-gray-700"
+            font-medium leading-8 text-bb-gray-700"
         >
           {rowData.description}
         </td>
