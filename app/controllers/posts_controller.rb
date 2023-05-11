@@ -12,6 +12,11 @@ class PostsController < ApplicationController
     render_notice(t("post.successfully_created"))
   end
 
+  def show
+    task = Post.find_by!(slug: params[:slug])
+    render_json({ post: })
+  end
+
   private
 
     def post_params
