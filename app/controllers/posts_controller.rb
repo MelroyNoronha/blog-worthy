@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    task = Post.find_by!(slug: params[:slug])
+    post = Post.find_by!(slug: params[:slug])
     render_json({ post: })
   end
 
