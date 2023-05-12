@@ -4,7 +4,7 @@ import { Modal as NeetoModal, Typography } from "@bigbinary/neetoui";
 import { useHistory, useParams } from "react-router-dom";
 
 import postsApi from "apis/posts";
-import PageLoader from "components/PageLoader";
+import { PageLoader } from "components/Common";
 
 const Modal = () => {
   const history = useHistory();

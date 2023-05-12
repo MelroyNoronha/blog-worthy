@@ -11,8 +11,7 @@ import { ToastContainer } from "react-toastify";
 import { registerIntercepts, setAuthHeaders } from "apis/axios";
 import { initializeLogger } from "common/logger";
 import Dashboard from "components/Dashboard";
-import CreatePost from "components/Posts/Create";
-import PostModal from "components/Posts/Modal";
+import { CreatePost, PostModal } from "components/Posts";
 
 const SwitchWithModal = () => {
   const location = useLocation();

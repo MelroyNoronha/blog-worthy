@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import postsApi from "apis/posts";
-import Container from "components/Container";
+import { Container } from "components/Common";
 
 import Form from "./Form";
 

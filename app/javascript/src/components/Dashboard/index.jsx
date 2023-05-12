@@ -3,8 +3,7 @@ import React, { useState, useEffect } from "react";
 import { isNil, isEmpty, either } from "ramda";
 
 import postsApi from "apis/posts";
-import Container from "components/Container";
-import PageLoader from "components/PageLoader";
+import { Container, PageLoader } from "components/Common";
 import Table from "components/Table";
 
 const Dashboard = () => {
