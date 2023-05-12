@@ -1,26 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import { Modal, Header, Body, Typography } from "@bigbinary/neetoui";
+import { Modal as NeetoModal, Typography } from "@bigbinary/neetoui";
+import { useHistory, useParams } from "react-router-dom";
 
-const PostModal = ({ title, description, onClose, isOpen }) => (
-  <Modal
-    closeButton
-    closeOnEsc
-    closeOnOutsideClick
-    isOpen={isOpen}
-    onClose={onClose}
-  >
-    <Header>
-      <Typography id="dialog1Title" style="h2">
-        {title}
-      </Typography>
-      <Body className="space-y-2">
-        <Typography lineHeight="normal" style="body2">
-          {description}
-        </Typography>
-      </Body>
-    </Header>
-  </Modal>
-);
+import postsApi from "apis/posts";
+import PageLoader from "components/PageLoader";
 
-export default PostModal;
+const Modal = () => {
+  const history = useHistory();
+  const { slug } = useParams();
+  const [postDetails, setPostDetails] = useState({});
+  const [pageLoading, setPageLoading] = useState(true);
+
+  const fetchPostDetails = async () => {
+    try {
+      const {
+        data: { post },
+      } = await postsApi.show(slug);
+      setPostDetails(post);
+    } catch (error) {
+      logger.error(error);
+    } finally {
+      setPageLoading(false);
+    }
+  };
+
+  const onClose = () => {
+    history.goBack();
+  };
+
+  useEffect(() => {
+    fetchPostDetails();
+  }, []);
+
+  if (pageLoading) {
+    return <PageLoader />;
+  }
+
+  return (
+    <NeetoModal isOpen size="large" onClose={onClose}>
+      <NeetoModal.Header>
+        <Typography style="h2">{postDetails?.title}</Typography>
+      </NeetoModal.Header>
+      <NeetoModal.Body className="mb-4">
+        <Typography style="body2">{postDetails?.description}</Typography>
+      </NeetoModal.Body>
+    </NeetoModal>
+  );
+};
+
+export default Modal;

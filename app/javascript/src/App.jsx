@@ -1,12 +1,38 @@
 import React, { useEffect, useState } from "react";
 
-import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
+import {
+  Route,
+  Switch,
+  BrowserRouter as Router,
+  useLocation,
+} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { registerIntercepts, setAuthHeaders } from "apis/axios";
 import { initializeLogger } from "common/logger";
 import Dashboard from "components/Dashboard";
 import CreatePost from "components/Posts/Create";
+import PostModal from "components/Posts/Modal";
+
+const SwitchWithModal = () => {
+  const location = useLocation();
+  const background = location.state && location.state.background;
+
+  return (
+    <>
+      <Switch location={background || location}>
+        <Route exact path="/" render={() => <div>Home</div>} />
+        <Route exact component={CreatePost} path="/create" />
+        <Route exact component={Dashboard} path="/dashboard" />
+      </Switch>
+      {background && (
+        <Route path="/posts/:slug">
+          <PostModal />
+        </Route>
+      )}
+    </>
+  );
+};
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -24,11 +50,7 @@ const App = () => {
   return (
     <Router>
       <ToastContainer />
-      <Switch>
-        <Route exact path="/" render={() => <div>Home</div>} />
-        <Route exact component={CreatePost} path="/create" />
-        <Route exact component={Dashboard} path="/dashboard" />
-      </Switch>
+      <SwitchWithModal />
     </Router>
   );
 };
