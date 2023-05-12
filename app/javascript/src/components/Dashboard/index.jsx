@@ -49,8 +49,8 @@ const Dashboard = () => {
     <Container>
       <PostsContainer>
         <PostsHeader />
-        {posts.map(rowData => (
-          <PostCard data={rowData} key={rowData.id} />
+        {posts.map(post => (
+          <PostCard key={post.id} postData={post} />
         ))}
       </PostsContainer>
     </Container>
