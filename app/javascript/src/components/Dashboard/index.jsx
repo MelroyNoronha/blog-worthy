@@ -4,7 +4,7 @@ import { isNil, isEmpty, either } from "ramda";
 
 import postsApi from "apis/posts";
 import { Container, PageLoader } from "components/Common";
-import Table from "components/Table";
+import { PostsContainer, PostsHeader, PostCard } from "components/Posts";
 
 const Dashboard = () => {
   const [posts, setPosts] = useState([]);
@@ -47,7 +47,12 @@ const Dashboard = () => {
 
   return (
     <Container>
-      <Table data={posts} />
+      <PostsContainer>
+        <PostsHeader />
+        {posts.map(rowData => (
+          <PostCard data={rowData} key={rowData.id} />
+        ))}
+      </PostsContainer>
     </Container>
   );
 };
