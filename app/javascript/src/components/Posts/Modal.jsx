@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import { Modal as NeetoModal, Typography } from "@bigbinary/neetoui";
+import { Typography } from "@bigbinary/neetoui";
+import ReactModal from "react-modal";
 import { useHistory, useParams } from "react-router-dom";
 
 import postsApi from "apis/posts";
@@ -38,14 +39,12 @@ const Modal = () => {
   }
 
   return (
-    <NeetoModal isOpen size="large" onClose={onClose}>
-      <NeetoModal.Header>
-        <Typography style="h2">{postDetails?.title}</Typography>
-      </NeetoModal.Header>
-      <NeetoModal.Body className="mb-4">
+    <ReactModal isOpen onRequestClose={onClose}>
+      <Typography style="h2">{postDetails?.title}</Typography>
+      <div className="my-4">
         <Typography style="body2">{postDetails?.description}</Typography>
-      </NeetoModal.Body>
-    </NeetoModal>
+      </div>
+    </ReactModal>
   );
 };
 
