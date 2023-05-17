@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 
 import { registerIntercepts, setAuthHeaders } from "apis/axios";
 import { initializeLogger } from "common/logger";
+import Signup from "components/Authentication/Signup";
 import Dashboard from "components/Dashboard";
 import { CreatePost, PostModal } from "components/Posts";
 
@@ -23,6 +24,7 @@ const SwitchWithModal = () => {
         <Route exact path="/" render={() => <div>Home</div>} />
         <Route exact component={CreatePost} path="/create" />
         <Route exact component={Dashboard} path="/dashboard" />
+        <Route exact component={Signup} path="/signup" />
       </Switch>
       {background && (
         <Route path="/posts/:slug">

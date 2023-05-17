@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+import { posts as postsApi } from "apis";
 import { isNil, isEmpty, either } from "ramda";
 
-import postsApi from "apis/posts";
 import { Container, PageLoader } from "components/Common";
 import { PostsContainer, PostsHeader, PostCard } from "components/Posts";
 
