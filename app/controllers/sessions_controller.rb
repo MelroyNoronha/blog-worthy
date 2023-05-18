@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
-  skip_before_action :authenticate_user_using_x_auth_token
+  skip_before_action :authenticate_user_using_x_auth_token, only: :create
 
   def create
     @user = User.find_by!(email: login_params[:email].downcase)
@@ -9,6 +9,10 @@ class SessionsController < ApplicationController
     unless @user.authenticate(login_params[:password])
       render_error(t("auth.incorrect_credentials"), :unauthorized)
     end
+  end
+
+  def destroy
+    @current_user = nil
   end
 
   private

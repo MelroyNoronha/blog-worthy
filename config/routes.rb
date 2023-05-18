@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :posts, only: %i[index create show], param: :slug
     resources :users, only: %i[index create]
     resources :organizations, only: %i[index]
-    resource :session, only: %i[create]
+    resource :session, only: %i[create destroy]
   end
 
   root "home#index"
