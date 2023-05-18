@@ -6,4 +6,9 @@ json.post do
     :slug,
     :title,
     :description
+
+  json.author do
+    json.extract! @post.author,
+      :name
+  end
 end
