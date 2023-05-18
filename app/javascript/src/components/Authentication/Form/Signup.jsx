@@ -1,9 +1,8 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import Select from "react-select";
 
-import { Button, Input } from "components/Common";
+import { Button, Input, Select } from "components/Common";
 
 const Signup = ({
   handleSubmit,

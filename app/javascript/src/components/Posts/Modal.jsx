@@ -42,7 +42,7 @@ const Modal = () => {
     <ReactModal isOpen onRequestClose={onClose}>
       <Typography style="h2">{postDetails?.title}</Typography>
       <div className="my-4">
-        <Typography style="body1">By: {postDetails?.author.name}</Typography>
+        <Typography style="body1">{postDetails?.author.name}</Typography>
       </div>
       <div className="my-4">
         <Typography style="body2">{postDetails?.description}</Typography>
