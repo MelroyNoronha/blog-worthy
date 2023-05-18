@@ -2,8 +2,8 @@
 
 class PostsController < ApplicationController
   def index
-    posts = Post.all.as_json(include: { author: { only: %i[name] } })
-    render_json({ posts: })
+    posts = Post.all.select { |post| post.author.organization_id == current_user.organization_id }
+    render_json({ posts: posts.as_json(include: { author: { only: %i[name] } }) })
   end
 
   def create
