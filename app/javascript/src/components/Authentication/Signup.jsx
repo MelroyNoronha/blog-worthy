@@ -27,7 +27,7 @@ const Signup = ({ history }) => {
         organization_id: selectedOrganizationId,
       });
       setLoading(false);
-      history.push("/");
+      history.push("/login");
     } catch (error) {
       logger.error(error);
       setLoading(false);

@@ -16,7 +16,7 @@ const Create = ({ history }) => {
     try {
       await postsApi.create({ title, description });
       setLoading(false);
-      history.push("/dashboard");
+      history.push("/");
     } catch (error) {
       logger.error(error);
       setLoading(false);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { either, isEmpty, isNil } from "ramda";
 import {
   Route,
   Switch,
@@ -10,21 +11,31 @@ import { ToastContainer } from "react-toastify";
 
 import { registerIntercepts, setAuthHeaders } from "apis/axios";
 import { initializeLogger } from "common/logger";
-import Signup from "components/Authentication/Signup";
-import Dashboard from "components/Dashboard";
+import { Login, Signup } from "components/Authentication";
+import { PrivateRoute } from "components/Common";
 import { CreatePost, PostModal } from "components/Posts";
+import { getFromLocalStorage } from "utils/storage";
+
+import Dashboard from "./components/Dashboard";
 
 const SwitchWithModal = () => {
   const location = useLocation();
   const background = location.state && location.state.background;
+  const authToken = getFromLocalStorage("authToken");
+  const isLoggedIn = !either(isNil, isEmpty)(authToken);
 
   return (
     <>
       <Switch location={background || location}>
-        <Route exact path="/" render={() => <div>Home</div>} />
         <Route exact component={CreatePost} path="/create" />
-        <Route exact component={Dashboard} path="/dashboard" />
         <Route exact component={Signup} path="/signup" />
+        <Route exact component={Login} path="/login" />
+        <PrivateRoute
+          component={Dashboard}
+          condition={isLoggedIn}
+          path="/"
+          redirectRoute="/login"
+        />
       </Switch>
       {background && (
         <Route path="/posts/:slug">

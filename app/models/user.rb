@@ -6,8 +6,10 @@ class User < ApplicationRecord
   MAX_EMAIL_LENGTH = 255
 
   belongs_to :organization, foreign_key: "organization_id"
+  has_many :posts
 
   has_secure_password
+  has_secure_token :authentication_token
 
   validates :name, presence: true, length: { maximum: MAX_NAME_LENGTH }
   validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: MAX_EMAIL_LENGTH },
