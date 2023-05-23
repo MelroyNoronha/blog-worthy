@@ -2,6 +2,7 @@
 
 class PostsController < ApplicationController
   before_action :load_post!, only: %i[show update]
+  after_action :calculate_net_votes, only: :update
 
   def index
     posts = Post.all.select { |post| post.author.organization_id == current_user.organization_id }
@@ -30,5 +31,10 @@ class PostsController < ApplicationController
 
     def load_post!
       @post = Post.find_by!(slug: params[:slug])
+    end
+
+    def calculate_net_votes
+      net_votes = @post.upvotes - @post.downvotes
+      @post.update!(net_votes:)
     end
 end

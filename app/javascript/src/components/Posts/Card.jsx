@@ -7,8 +7,7 @@ import Button from "./Button";
 
 const Card = ({ postData, handleUpvotePress, handleDownvotePress }) => {
   const location = useLocation();
-  const { slug, title, description, author, upvotes, downvotes } = postData;
-  const netVoteCount = upvotes - downvotes;
+  const { slug, title, description, author, net_votes } = postData;
 
   return (
     <div className="h-36 shadow rounded flex flex-row justify-between">
@@ -41,7 +40,7 @@ const Card = ({ postData, handleUpvotePress, handleDownvotePress }) => {
       </div>
       <div className="flex-grow flex flex-col items-center justify-between">
         <Button type="upvote" onClick={handleUpvotePress} />
-        <p className="">{netVoteCount}</p>
+        <p className="text-base font-bold">{net_votes}</p>
         <Button type="downvote" onClick={handleDownvotePress} />
       </div>
     </div>

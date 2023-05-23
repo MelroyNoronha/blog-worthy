@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_18_055044) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_23_123634) do
   create_table "organizations", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -28,6 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_055044) do
     t.string "slug", null: false
     t.integer "user_id"
     t.integer "organization_id"
+    t.integer "net_votes", default: 0, null: false
     t.index ["slug"], name: "index_posts_on_slug", unique: true
   end
 
