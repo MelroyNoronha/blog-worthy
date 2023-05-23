@@ -2,7 +2,7 @@
 
 class PostsController < ApplicationController
   before_action :load_post!, only: %i[show update]
-  after_action :calculate_net_votes, only: :update
+  after_action :calculate_net_votes_and_set_is_blog_worthy, only: :update
 
   def index
     posts = Post.all.select { |post| post.author.organization_id == current_user.organization_id }
@@ -34,7 +34,21 @@ class PostsController < ApplicationController
     end
 
     def calculate_net_votes
-      net_votes = @post.upvotes - @post.downvotes
-      @post.update!(net_votes:)
+      @post.upvotes - @post.downvotes
+    end
+
+    def is_blog_worthy(net_votes)
+      if net_votes > Post::BLOG_WORTHY_THRESHOLD
+        true
+      elsif net_votes <= Post::BLOG_WORTHY_THRESHOLD
+        false
+      end
+    end
+
+    def calculate_net_votes_and_set_is_blog_worthy
+      net_votes = calculate_net_votes()
+      is_blog_worthy = is_blog_worthy(net_votes)
+
+      @post.update!(net_votes:, is_blog_worthy:)
     end
 end

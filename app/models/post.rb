@@ -2,6 +2,7 @@
 
 class Post < ApplicationRecord
   MAX_TITLE_LENGTH = 125
+  BLOG_WORTHY_THRESHOLD = 10
 
   belongs_to :author, foreign_key: "user_id", class_name: "User"
   has_one :associated_organization, foreign_key: "organization_id", class_name: "Organization"
