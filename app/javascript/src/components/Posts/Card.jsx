@@ -7,7 +7,8 @@ import Button from "./Button";
 
 const Card = ({ postData, handleUpvotePress, handleDownvotePress }) => {
   const location = useLocation();
-  const { slug, title, description, author, net_votes } = postData;
+  const { slug, title, description, author, net_votes, is_blog_worthy } =
+    postData;
 
   return (
     <div className="h-36 shadow rounded flex flex-row justify-between">
@@ -25,12 +26,19 @@ const Card = ({ postData, handleUpvotePress, handleDownvotePress }) => {
             {title}
           </p>
         </Link>
-        <p
-          className="block w-3/4 cursor-pointer
+        <div className="align-center flex">
+          <p
+            className="block w-3/4 cursor-pointer
               px-6 text-xs font-medium capitalize leading-8"
-        >
-          Created by: {author.name}
-        </p>
+          >
+            Created by: {author.name}
+          </p>
+          {is_blog_worthy && (
+            <p className="h-6 rounded-xl border-2 border-bb-purple px-2 text-xs text-bb-purple">
+              blog worthy
+            </p>
+          )}
+        </div>
         <p
           className="truncate block w-64 px-6
               text-sm leading-8 text-bb-gray-700"
