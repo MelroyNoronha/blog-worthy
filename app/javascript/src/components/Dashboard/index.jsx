@@ -23,6 +23,38 @@ const Dashboard = () => {
     }
   };
 
+  const handleUpvotePress = async (slug, upvotes) => {
+    try {
+      const updatedUpvotes = upvotes + 1;
+      await postsApi.update({
+        slug,
+        payload: {
+          upvotes: updatedUpvotes,
+        },
+      });
+
+      await fetchPosts();
+    } catch (error) {
+      logger.error(error);
+    }
+  };
+
+  const handleDownvotePress = async (slug, downvotes) => {
+    try {
+      const updatedDownvotes = downvotes + 1;
+      await postsApi.update({
+        slug,
+        payload: {
+          downvotes: updatedDownvotes,
+        },
+      });
+
+      await fetchPosts();
+    } catch (error) {
+      logger.error(error);
+    }
+  };
+
   useEffect(() => {
     fetchPosts();
   }, []);
@@ -50,7 +82,14 @@ const Dashboard = () => {
       <PostsContainer>
         <PostsHeader />
         {posts.map(post => (
-          <PostCard key={post.id} postData={post} />
+          <PostCard
+            handleUpvotePress={() => handleUpvotePress(post.slug, post.upvotes)}
+            key={post.id}
+            postData={post}
+            handleDownvotePress={() =>
+              handleDownvotePress(post.slug, post.downvotes)
+            }
+          />
         ))}
       </PostsContainer>
     </Container>
