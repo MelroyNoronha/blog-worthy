@@ -4,24 +4,7 @@ require "test_helper"
 
 class PostTest < ActiveSupport::TestCase
   def setup
-    @organization = Organization.new(name: "Big Binary")
-    @organization.save!
-
-    @user = User.new(
-      name: "Sam Smith",
-      email: "sam@example.com",
-      password: "welcome",
-      password_confirmation: "welcome", organization_id: @organization.id)
-    @user.save!
-
-    @post = Post.new(
-      title: "Post title",
-      description: "This is the post description.",
-      user_id: @user.id,
-      organization_id: @organization_id,
-      upvotes: 2,
-      downvotes: 1
-    )
+    @post = build(:post)
   end
 
   def test_post_should_not_be_saved_without_title
@@ -30,8 +13,8 @@ class PostTest < ActiveSupport::TestCase
     assert @post.invalid?
   end
 
-  def test_post_should_not_be_saved_without_user_id_foreign_key
-    @post.user_id = nil
+  def test_post_should_not_be_saved_without_author
+    @post.author = nil
 
     assert @post.invalid?
   end
@@ -45,13 +28,7 @@ class PostTest < ActiveSupport::TestCase
   def test_slug_should_be_unique
     @post.save!
 
-    another_post = Post.new(
-      title: "Another post title",
-      description: "This is the post description.",
-      user_id: @user.id,
-      organization_id: @organization_id
-    )
-    another_post.save!
+    another_post = create(:post)
 
     assert_not_same @post.slug, another_post.slug
   end

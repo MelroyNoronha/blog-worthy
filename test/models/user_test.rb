@@ -4,13 +4,7 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   def setup
-    @organization = Organization.new(name: "Big Binary")
-    @organization.save!
-    @user = User.new(
-      name: "Sam Smith",
-      email: "sam@example.com",
-      password: "welcome",
-      password_confirmation: "welcome", organization_id: @organization.id)
+    @user = build(:user)
   end
 
   def test_user_should_not_be_valid_and_saved_without_name
@@ -92,15 +86,13 @@ fishy+#.com]
 
   def test_users_should_have_unique_auth_token
     @user.save!
-    second_user = User.create!(
-      name: "Olive Sans", email: "olive@example.com", password: "welcome",
-      password_confirmation: "welcome", organization_id: @organization.id)
+    second_user = create(:user)
 
     assert_not_same @user.authentication_token, second_user.authentication_token
   end
 
   def test_user_should_not_be_saved_without_organization
-    @user.organization_id = nil
+    @user.organization = nil
 
     assert @user.invalid?
   end
