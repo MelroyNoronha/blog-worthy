@@ -3,6 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
 
+import BlogWorthyBadge from "./BlogWorthyBadge";
 import Button from "./Button";
 
 const Card = ({ postData, handleUpvotePress, handleDownvotePress }) => {
@@ -33,11 +34,7 @@ const Card = ({ postData, handleUpvotePress, handleDownvotePress }) => {
           >
             Created by: {author.name}
           </p>
-          {is_blog_worthy && (
-            <p className="h-6 rounded-xl border-2 border-bb-purple px-2 text-xs text-bb-purple">
-              blog worthy
-            </p>
-          )}
+          {is_blog_worthy && <BlogWorthyBadge />}
         </div>
         <p
           className="truncate block w-64 px-6
