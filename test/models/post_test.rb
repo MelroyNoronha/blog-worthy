@@ -4,6 +4,7 @@ require "test_helper"
 
 class PostTest < ActiveSupport::TestCase
   def setup
+    @user = create(:user)
     @post = build(:post)
   end
 
@@ -26,9 +27,10 @@ class PostTest < ActiveSupport::TestCase
   end
 
   def test_slug_should_be_unique
-    @post.save!
+    not_unique_title = "Not unique title"
+    post = Post.create!(title: not_unique_title, description: "This is the description.", author: @user)
 
-    another_post = create(:post)
+    another_post = Post.create!(title: not_unique_title, description: "This is the description", author: @user)
 
     assert_not_same @post.slug, another_post.slug
   end
